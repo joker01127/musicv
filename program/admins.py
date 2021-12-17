@@ -24,7 +24,7 @@ bcl = InlineKeyboardMarkup(
 )
 
 
-@Client.on_message(command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["تحديث", f"reload@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def update_admin(client, message):
     global admins
@@ -34,11 +34,11 @@ async def update_admin(client, message):
         new_admins.append(u.user.id)
     admins[message.chat.id] = new_admins
     await message.reply_text(
-        "✅ Bot **reloaded correctly !**\n✅ **Admin list** has **updated !**"
+        "✅ Bot **reloaded correctly !**\n✅ **Admin list** has been **updated !**"
     )
 
 
-@Client.on_message(command(["skip", f"skip@{BOT_USERNAME}", "vskip"]) & other_filters)
+@Client.on_message(command(["تخطي", f"skip@{BOT_USERNAME}", "vskip"]) & other_filters)
 @authorized_users_only
 async def skip(client, m: Message):
 
@@ -89,7 +89,7 @@ async def skip(client, m: Message):
 
 
 @Client.on_message(
-    command(["stop", f"stop@{BOT_USERNAME}", "end", f"end@{BOT_USERNAME}", "vstop"])
+    command(["توقف", f"stop@{BOT_USERNAME}", "end", f"end@{BOT_USERNAME}", "vstop"])
     & other_filters
 )
 @authorized_users_only
@@ -99,11 +99,11 @@ async def stop(client, m: Message):
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await m.reply("✅ The userbot has disconnected from the video chat.")
+            await m.reply("✅ **streaming has ended.**")
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing is streaming**")
+        await m.reply("❌ **nothing in streaming**")
 
 
 @Client.on_message(
