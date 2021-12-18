@@ -27,17 +27,14 @@
         "BOT_USERNAME": {
             "description": "your bot username from @BotFather",
             "required": true
-            "value": "DJ4bot"
         },
         "BOT_NAME": {
             "description": "fill with your bot name from @BotFather",
             "required": true
-            "value": "𝑫𝑱 𝑮𝑨𝑴𝑩𝑶𝑳 ♫︎"
         },
         "ASSISTANT_NAME": {
             "description": "fill with the assistant username account without @",
             "required": true
-            "value": "D_J_H4"
         },
         "SESSION_NAME": {
             "description": "fill with the pyrogram String Session",
@@ -46,7 +43,6 @@
         "SUDO_USERS": {
             "description": "list of user ids to be added to sudo member list, or just fill with your id",
             "required": true
-            "value": "2010871134"
         },
         "GROUP_SUPPORT": {
             "description": "if you have group, then fill the group username here without @",
