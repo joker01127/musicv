@@ -9,7 +9,7 @@ from driver.decorators import authorized_users_only, sudo_users_only
 
 
 @Client.on_message(
-    command(["انضم", f"userbotjoin@{BOT_USERNAME}"]) & ~filters.private & ~filters.bot
+    command(["userbotjoin", f"userbotjoin@{BOT_USERNAME}"]) & ~filters.private & ~filters.bot
 )
 @authorized_users_only
 async def join_chat(c: Client, m: Message):
@@ -23,7 +23,7 @@ async def join_chat(c: Client, m: Message):
             (await user.get_me()).id,
             can_manage_voice_chats=True
         )
-        return await user.send_message(chat_id, "نـجــح الانــضمــام •✓•")
+        return await user.send_message(chat_id, "✅ بالفعل المساعد موجود هنا")
     except UserAlreadyParticipant:
         admin = await m.chat.get_member((await user.get_me()).id)
         if not admin.can_manage_voice_chats:
@@ -31,11 +31,12 @@ async def join_chat(c: Client, m: Message):
                 (await user.get_me()).id,
                 can_manage_voice_chats=True
             )
-            return await user.send_message(chat_id, "الحـساب المســاعد موجـــود بالــفعـل •✓•")
-        return await user.send_message(chat_id, "الحـساب المســاعد موجـــود بالــفعـل •✓•")
+            return await user.send_message(chat_id, "✅ المساعد متواجد في المجموعه بالفعل")
+        return await user.send_message(chat_id, "✅  المساعد متواجد في المجموعه بالفعل")
 
 
-@Client.on_message(command(["غادر",f"leave@{BOT_USERNAME}"]) & filters.group & ~filters.edited
+@Client.on_message(command(["userbotleave",
+                            f"leave@{BOT_USERNAME}"]) & filters.group & ~filters.edited
 )
 @authorized_users_only
 async def leave_chat(_, m: Message):
@@ -44,16 +45,16 @@ async def leave_chat(_, m: Message):
         await user.leave_chat(chat_id)
         return await _.send_message(
             chat_id,
-            "نــجـحــت المــغادره •✓•",
+            "✅ لقد غادر المساعد",
         )
     except UserNotParticipant:
         return await _.send_message(
             chat_id,
-            "الحـساب المســاعد ليــس موجــود بالــفعـل •✘•",
+            "❌ المساعد ليس موجود هنا اصلا",
         )
 
 
-@Client.on_message(command(["مغادره", f"leaveall@{BOT_USERNAME}"]))
+@Client.on_message(command(["leaveall", f"leaveall@{BOT_USERNAME}"]))
 @sudo_users_only
 async def leave_all(client, message):
     if message.from_user.id not in SUDO_USERS:
@@ -61,22 +62,22 @@ async def leave_all(client, message):
 
     left = 0
     failed = 0
-    lol = await message.reply("🔄 **جاري مغادرت كل المجموعات**")
+    lol = await message.reply("🔄 **المساعد** يغادر جميع المجموعات!")
     async for dialog in USER.iter_dialogs():
         try:
             await USER.leave_chat(dialog.chat.id)
             left += 1
             await lol.edit(
-                f"Userbot leaving all group...\n\nLeft: {left} chats.\nFailed: {failed} chats."
+                f"جاري مغادره جميع الجروبات...\n\nغادر: {left} جروب.\nفشل: {failed} جروب."
             )
         except BaseException:
             failed += 1
             await lol.edit(
-                f"Userbot leaving...\n\nLeft: {left} chats.\nFailed: {failed} chats."
+                f"المساعد يغادر...\n\nغادر: {left} جروب.\nفشل: {failed} جروب."
             )
         await asyncio.sleep(0.7)
     await client.send_message(
-        message.chat.id, f"✅ Left from: {left} chats.\n❌ Failed in: {failed} chats."
+        message.chat.id, f"✅ غادر: {left} جروب.\n❌ فشل: {failed} جروب."
     )
 
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2021 By VeezMusicProject
+
 
 import os
 from pyrogram import Client, filters
@@ -9,7 +9,7 @@ from driver.decorators import sudo_users_only, errors
 downloads = os.path.realpath("program/downloads")
 raw = os.path.realpath(".")
 
-@Client.on_message(command(["الغاء", "clear"]) & ~filters.edited)
+@Client.on_message(command(["rmd", "clear"]) & ~filters.edited)
 @errors
 @sudo_users_only
 async def clear_downloads(_, message: Message):
@@ -17,12 +17,12 @@ async def clear_downloads(_, message: Message):
     if ls_dir:
         for file in os.listdir(downloads):
             os.remove(os.path.join(downloads, file))
-        await message.reply_text("✅ **تم الغاء كل العمليات**")
+        await message.reply_text("✅ **حذف جميع الملفات التي تم تنزيلها**")
     else:
-        await message.reply_text("❌ **لا يتم تنفيذ ااي امر**")
+        await message.reply_text("❌ **لم يتم تنزيل أي ملفات**")
 
         
-@Client.on_message(command(["مسح", "clean"]) & ~filters.edited)
+@Client.on_message(command(["rmw", "clean"]) & ~filters.edited)
 @errors
 @sudo_users_only
 async def clear_raw(_, message: Message):
@@ -31,9 +31,9 @@ async def clear_raw(_, message: Message):
         for file in os.listdir(raw):
             if file.endswith('.raw'):
                 os.remove(os.path.join(raw, file))
-        await message.reply_text("✅ **تم مسح جميع الملفات**")
+        await message.reply_text("✅ **حذف جميع الملفات الخام**")
     else:
-        await message.reply_text("❌ **لا يتم تحميل ملفات**")
+        await message.reply_text("❌ **لم يتم العثور على ملفات خام**")
 
 
 @Client.on_message(command(["cleanup"]) & ~filters.edited)
@@ -45,6 +45,6 @@ async def cleanup(_, message: Message):
     if ls_dir:
         for dta in os.listdir(pth):
             os.system("rm -rf *.raw *.jpg")
-        await message.reply_text("✅ **تم التنظيف**")
+        await message.reply_text("✅ **تنظيف**")
     else:
-        await message.reply_text("✅ **تم التنظيف بنجاح**")
+        await message.reply_text("✅ **تم تنظيفها بالفعل**")

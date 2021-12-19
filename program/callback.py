@@ -1,4 +1,4 @@
-# Copyright (C) 2021 By VeezMusicProject
+
 
 from driver.queues import QUEUE
 from pyrogram import Client, filters
@@ -16,36 +16,35 @@ from config import (
 @Client.on_callback_query(filters.regex("cbstart"))
 async def cbstart(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""✨ **اهلا عزيــزي {message.from_user.mention()} !**\n
-💭**انــا [{BOT_NAME}](https://t.me/{BOT_USERNAME})**
+        f""" **مرحــبا {message.from_user.mention()} !**\n
+❣️ [{UPDATES_CHANNEL}](https://t.me/{UPDATES_CHANNEL}) **يمكنني تشغيل الموسيقي و الفيديوهات داخل المحادثه الصوتيه**
 
-♲ **❖- يمـكننــي ان اقــوم بتشــغيـل الاغــانـي او الفـيديــوهـات داخــل المحــادثــات الصــوتـيــه..♡**
 
-♲ **❖- قــم باضــافة الحســاب المســاعد وابـدا الحــفلـه.. ❀**
-""",
+
+💫 **للمزيد عن طريقه الاستخدام اتبع الازرار.!**
+**⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "✗ اضــف البــوت الـي مجــموعــتك ✗",
+                        "اضــف البــوت الـي مجمــوعــتك",
                         url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
                     )
                 ],
                 [
-                    InlineKeyboardButton("↺ الاوامـــر", callback_data="cbcmds"),
-                    InlineKeyboardButton("طــريقـه اسـتخـدام البــوت", callback_data="cbhowtouse"),
+                    InlineKeyboardButton("الاوامـــر 📚", callback_data="cbcmds"),
                 ],
                 [
                     InlineKeyboardButton(
-                        "👥 جــروب الدعــم", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "المـساعــد 👥", url=f"https://t.me/{ASSISTANT_NAME}"
                     ),
                     InlineKeyboardButton(
-                        "📣 قنــاه البــوت", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "المــطور ❤️‍🔥", url=f"https://t.me/{OWNER_NAME}"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "👤 الحــساب المــساعــد", url="https://t.me/{ASSISTANT_NAME}"
+                        "الــســـورس", url="https://t.me/G8_01"
                     )
                 ],
             ]
@@ -54,40 +53,18 @@ async def cbstart(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbhowtouse"))
-async def cbguides(_, query: CallbackQuery):
-    await query.edit_message_text(
-        f"""❓ **الــيك كيــفيه اسـتخـدام البــوت:**
-
-1.) **اولا قــم باضــافتـي الي مجموعــتك.**
-2.) **بعد ذلك ، قم بترقيتي مشــرف ومنحي جميع الصلاحيات باستثناء التخفي.**
-3.) **بعد ترقيتي اكتب, /reload لتحديث قائمه الادمنيه.**
-3.) **قم باضافت @{ASSISTANT_NAME} الي مجموعتك.**
-4.) **قم بتشغيل محادثة الفيديو أولاً قبل البدء في تشغيل الفيديو او الاغاني .**
-
-📌 **إذا لم ينضم الحساب المساعد إلي المحادثه الصوتيه ، فتأكد من تشغيلها بالفعل ، أو اكتب /userbotleave ثم اكتب /userbotjoin مرة أخرى**
-
-💡 **اذا واجهتك مشكله تواصل معنا عن طريق جروب الدعم: @{GROUP_SUPPORT}**
-
-⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷""",
-        reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 رجـــوع", callback_data="cbstart")]]
-        ),
-    )
-
-
 @Client.on_callback_query(filters.regex("cbcmds"))
 async def cbcmds(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""✨ **مرحبا [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
+        f"""✨ **مرحــبا [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
 
-» **اتبع الازرار من الاسفل للمتابعه**
+» **اتــبع الازرار من الاســفل لعرض كـافـه الاوامر !**
 
-⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷""",
+**⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("👷🏻 اوامر الادمن", callback_data="cbadmin"),
+                    InlineKeyboardButton("👷🏻 اوامر الادمنيه", callback_data="cbadmin"),
                     InlineKeyboardButton("🧙🏻 اوامر المطور", callback_data="cbsudo"),
                 ],[
                     InlineKeyboardButton("📚 الاوامر الاساسيه", callback_data="cbbasic")
@@ -102,18 +79,23 @@ async def cbcmds(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbbasic"))
 async def cbbasic(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""🏮 اليك الاوامر الاساسيه:
+        f"""🏮 اوامر تشغيل البوت ⇓:
 
-» تشغيل - لتشغيل الاغنيه 
-» فيديو - لتشغيل الفيدوهات
-» تحكم - لعرض قائمه التشغيل
-» بحث - لتنزيل فيديو
-» صوت - لتنزيل اغنيه
+» /play + (اسم الاغنيه/الرابط) - للتشغيل الاغنيه ف الكول
+» /stream + (الرابط) - لتشغيل البث المباشر صوتي
+» /vplay + (اسم الفيديو/link) - لتشغيل الفديو ف الكول
+» /vstream - لتشغيل البث المباشر فيديو
+» /playlist - عرض قائمه التشغيل
+» /video (query) - تنزيل الفيديو من اليوتيوب
+» /song (query) - تنزيل الاغنيه من اليوتيوب
+» /lyric (query) - لجلب كلمات الاغنيه
+» /search (query) - للبحث عن طريق اللينك ف اليوتيوب
 
-» السرعه - عرض حاله البوت
-» /uptime - عرض وقت تحديث البوت
+» /ping - عرض حالة البوت 
+» /uptime - عرض حالة البوت للتشغيل
+» /alive - عرض معلومات البوت للتشغيل (في مجموعة)
 
-⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷""",
+**⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷**""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجــوع", callback_data="cbcmds")]]
         ),
@@ -125,15 +107,18 @@ async def cbadmin(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""🏮 اليك اوامر الادمنيه:
 
-» توقف - توقف البث
-» استمرار - اعاده التشغيل
-» تخطي - تخطي الاغنيه الحالي
-» توقف - ايقاف الاغنيه
-» تحزيث - اعاده تشغيل البوت
-» انضم - دعوه الحساب المساعد للجروب
-» غادر - مغادره الحساب المساعد المجموعه
+» /pause - ايقاف التشغيل مؤقتا
+» /resume - استئناف التشغيل
+» /skip - تشغيل الاغنيه التاليه
+» /stop - ايقاف تشغيل الموسيقى
+» /vmute - كتم البوت في الدردشه الصوتيه
+» /vunmute - الغاء كتم البوت في الدردشه الصوتيه
+» /volume `1-200` - ضبط مستوي الصوت
+» /reload - اعاده تحميل البوت وتحديث الادمنيه
+» /userbotjoin - انضمام إلي مجموعتك
+» /userbotleave - خروج من المجموعه
 
-⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷""",
+**⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷**""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجــوع", callback_data="cbcmds")]]
         ),
@@ -142,16 +127,16 @@ async def cbadmin(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbsudo"))
 async def cbsudo(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""اليك اوامر المطور :
+        f"""🏮 اليك اوامر المطور:
 
-» مسح - تنظيف جميع الملفات
-» الغاء - تنظيف جميع عمليات التحميل
-» النظام - عرض معلومات النظام
-» تحديث السورس - تحديث البوت الخاص بك الي احدث اصدار
-» ريفريش - اعاده تشغيل البوت
-» مغادره - طلب مغادره الحساب المساعد لكل المجموعات
+» /rmw - تنظيف كافة الملفات 
+» /rmd - تنظيف كافة الملفات التي تم تنزيلها
+» /sysinfo - عرض معلومات النظام
+» /update - تحديث بوتك الي اخر اصدار
+» /restart -  اعاده تشغيل البوت
+» /leaveall - خروج البوت من جميع المجموعات
 
-⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷""",
+**⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷**""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجــوع", callback_data="cbcmds")]]
         ),
@@ -161,73 +146,34 @@ async def cbsudo(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbmenu"))
 async def cbmenu(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("انت لست ادمن ف البوت لا يمكنك التحكم به.")
+        return await query.answer("you're an Anonymous Admin !\n\n» revert back to user account from admin rights.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
+        return await query.answer("💡 only admin with manage voice chats permission that can tap this button !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
           await query.edit_message_text(
-              f"⚙️ **اعدادات** {query.message.chat.title}\n\n⏸ : ايــقاف\n▶️ : تـشغــيل\n⏹ : اغـــلاق",
+              f"⚙️ **settings of** {query.message.chat.title}\n\n⏸ : pause stream\n▶️ : resume stream\n🔇 : mute userbot\n🔊 : unmute userbot\n⏹ : stop stream",
               reply_markup=InlineKeyboardMarkup(
                   [[
                       InlineKeyboardButton("⏹", callback_data="cbstop"),
                       InlineKeyboardButton("⏸", callback_data="cbpause"),
                       InlineKeyboardButton("▶️", callback_data="cbresume"),
                   ],[
+                      InlineKeyboardButton("🔇", callback_data="cbmute"),
+                      InlineKeyboardButton("🔊", callback_data="cbunmute"),
+                  ],[
                       InlineKeyboardButton("🗑 اغــلاق", callback_data="cls")],
                   ]
              ),
          )
     else:
-        await query.answer("❌ لا شيء يتدفق حاليا", show_alert=True)
+        await query.answer("❌ لا يتم البث", show_alert=True)
 
-@Client.on_callback_query(filters.regex("gambol"))
-async def cbbasic(_, query: CallbackQuery):
-    await query.edit_message_text(
-        f"**مطــور الســورس**",
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                InlineKeyboardButton(
-                        "♡المبــرمـج غــامــبول♡", url=f"https://t.me/G8_M_L"
-                    ),
-                    InlineKeyboardButton(
-                        "📣 جــروب الدعــم", url=f"https://t.me/MatrixSupport_Official"
-                    ),
-                ],
-                [
-            [[InlineKeyboardButton("🔙 رجــوع", callback_data="cbcmds")]]
-        ),
-    )
-    
-    
-    @Client.on_callback_query(filters.regex("mat"))
-async def cbbasic(_, query: CallbackQuery):
-    await query.edit_message_text(
-        f"**⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷**",
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                InlineKeyboardButton("𖤍 مــطور الســورس", url=f"https://t.me/G8_M_L"),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "👥 جــروب الدعــم", url=f"https://t.me/MatrixSupport_Official"
-                    ),
-                    InlineKeyboardButton(
-                        "📣 قنــاه الســورس", url=f"https://t.me/G8_01"
-                    ),
-                ],
-                [
-            [[InlineKeyboardButton("🔙 رجــوع", callback_data="cbcmds")]]
-        ),
-    )
-    
-    
+
 @Client.on_callback_query(filters.regex("cls"))
 async def close(_, query: CallbackQuery):
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
+        return await query.answer("💡 بطل لعب يعبيط !", show_alert=True)
     await query.message.delete()

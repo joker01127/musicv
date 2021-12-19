@@ -1,9 +1,5 @@
 import os
-import re
 import sys
-import asyncio
-import subprocess
-from asyncio import sleep
 
 from git import Repo
 from pyrogram.types import Message
@@ -53,24 +49,24 @@ def updater():
     return bool(changelog)
 
 
-@Client.on_message(command(["تحديث السورس", f"update@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["update", f"update@{BOT_USERNAME}"]) & ~filters.edited)
 @sudo_users_only
 async def update_repo(_, message: Message):
     chat_id = message.chat.id
-    msg = await message.reply("🔄 `بدا تحديث السورس...`")
+    msg = await message.reply("🔄 `جاري التحديث...`")
     update_avail = updater()
     if update_avail:
-        await msg.edit("**✓ تم التحديث** \n\n**• تم تحديث السورس وسيعود البوت للعمل بشكل كامل خلاص دقيقه**.")
+        await msg.edit("✅ انتهى التحديث \ n \ n • أعيد تشغيل البوت ، وعاد نشطًا مرة أخرى خلال دقيقة واحدة.")
         system("git pull -f && pip3 install -r requirements.txt")
         execle(sys.executable, sys.executable, "main.py", environ)
         return
 
 
-@Client.on_message(command(["اعاده التشغيل", f"restart@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["restart", f"restart@{BOT_USERNAME}"]) & ~filters.edited)
 @sudo_users_only
 async def restart_bot(_, message: Message):
-    msg = await message.reply("`جاري اعاده تشغيل البوت...`")
+    msg = await message.reply("`تحديث البوت...`")
     args = [sys.executable, "main.py"]
-    await msg.edit("نجحت العمليه وتم اعاده تشغيل البوت بشكل صحيح.")
+    await msg.edit("✅ نجحت العمليه\n\n• يمكنك استخدامه الان.")
     execle(sys.executable, *args, environ)
     return

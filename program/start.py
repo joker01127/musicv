@@ -53,36 +53,35 @@ async def _human_time_duration(seconds):
 )
 async def start_(client: Client, message: Message):
     await message.reply_text(
-        f"""✨ **اهلا عزيــزي {message.from_user.mention()} !**\n
-💭**انــا [{BOT_NAME}](https://t.me/{BOT_USERNAME})**
+        f""" **مرحــبا {message.from_user.mention()} !**\n
+❣️ [{UPDATES_CHANNEL}](https://t.me/{UPDATES_CHANNEL}) **يمكنني تشغيل الموسيقي و الفيديوهات داخل المحادثه الصوتيه**
 
-♲ **❖- يمـكننــي ان اقــوم بتشــغيـل الاغــانـي او الفـيديــوهـات داخــل المحــادثــات الصــوتـيــه..♡**
 
-♲ **❖- قــم باضــافة الحســاب المســاعد وابـدا الحــفلـه.. ❀**
-**⊶───≺♪𝐃𝐉 𝐆𝐀𝐌𝐁𝐎𝐋♪≻───⊷** """,
+
+💫 **للمزيد عن طريقه الاستخدام اتبع الازرار.!**
+""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "✗ اضــف البــوت الـي مجــموعــتك ✗",
+                        "اضــف البــوت الـي مجمــوعــتك",
                         url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
                     )
-                ],   
+                ],
                 [
-                    InlineKeyboardButton("↺ الاوامـــر", callback_data="cbcmds"),
-                    InlineKeyboardButton("طــريقـه اسـتخـدام البــوت", callback_data="cbhowtouse"),
+                    InlineKeyboardButton("الاوامـــر 📚", callback_data="cbcmds"),
                 ],
                 [
                     InlineKeyboardButton(
-                        "👥 جــروب الدعــم", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "المـساعــد 👥", url=f"https://t.me/{ASSISTANT_NAME}"
                     ),
                     InlineKeyboardButton(
-                        "📣 قنــاه البــوت", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "المــطور ❤️‍🔥", url=f"https://t.me/{OWNER_NAME}"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "👤 الحــساب المــساعــد", url="https://t.me/{ASSISTANT_NAME}"
+                        "الــســـورس", url="https://t.me/G8_01"
                     )
                 ],
             ]
@@ -92,7 +91,7 @@ async def start_(client: Client, message: Message):
 
 
 @Client.on_message(
-    command(["alive", f"alive@{BOT_USERNAME}"]) & filters.group & ~filters.edited
+    command(["start", f"start@{BOT_USERNAME}"]) & filters.group & ~filters.edited
 )
 async def alive(client: Client, message: Message):
     current_time = datetime.utcnow()
@@ -102,15 +101,15 @@ async def alive(client: Client, message: Message):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("✨  جــروب الدعــم", url=f"https://t.me/{GROUP_SUPPORT}"),
+                InlineKeyboardButton("✨ الـدعــم", url=f"https://t.me/{GROUP_SUPPORT}"),
                 InlineKeyboardButton(
-                    "📣 قنــاه البــوت", url=f"https://t.me/{UPDATES_CHANNEL}"
+                    "📣 القـــناه", url=f"https://t.me/{UPDATES_CHANNEL}"
                 ),
             ]
         ]
     )
 
-    alive = f"**مــرحبــا {message.from_user.mention()}, انــا {BOT_NAME}**\n\n✨ اعمــل بشــكل صحــيح\n🍀 مــطـور البــوت: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ وقت التـحديـث: `{uptime}`\n\n**❖ شكرا لاضـافتي هنـا يمـكننــي ان اقــوم بتشــغيـل الاغــانـي او الفـيديــوهـات داخــل المحــادثــات الصــوتـيــه** ❤"
+    alive = f"**Hello {message.from_user.mention()}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n🍀 My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ Bot Version: `v{__version__}`\n🍀 Pyrogram Version: `{pyrover}`\n✨ Python Version: `{__python_version__}`\n🍀 PyTgCalls version: `{pytover.__version__}`\n✨ Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing video & music on your Group's video chat** ❤"
 
     await message.reply_photo(
         photo=f"{ALIVE_IMG}",
@@ -119,23 +118,23 @@ async def alive(client: Client, message: Message):
     )
 
 
-@Client.on_message(command(["السرعه", f"ping@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["ping", f"ping@{BOT_USERNAME}"]) & ~filters.edited)
 async def ping_pong(client: Client, message: Message):
     start = time()
     m_reply = await message.reply_text("pinging...")
     delta_ping = time() - start
-    await m_reply.edit_text("🏓 `سرعــه!!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
+    await m_reply.edit_text("🏓 `PONG!!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
 
 
-@Client.on_message(command(["تحديث", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["uptime", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
 async def get_uptime(client: Client, message: Message):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
-        "🤖 حــالـه البــوت:\n"
-        f"• **تحديث:** `{uptime}`\n"
-        f"• **وقت التشغيل:** `{START_TIME_ISO}`"
+        "🤖 bot status:\n"
+        f"• **uptime:** `{uptime}`\n"
+        f"• **start time:** `{START_TIME_ISO}`"
     )
 
 
@@ -146,16 +145,17 @@ async def new_chat(c: Client, m: Message):
     for member in m.new_chat_members:
         if member.id == bot_id:
             return await m.reply(
-                "❤️ **شـكرا لاضــافتي الي مجــموعــتك !**\n\n"
-                "**ارفعنــي مشــرف مـع الصـلاحــيات المطلــوبـه ثـم اكــتـب /userbotjoin لكـي ينـضم الحســاب المـساعــد.**\n\n",
+                "❤️ **شكرا لاضافتي الي مجموعتك يمكنك متابعه التحديثات م هنا @G8_01**\n\n"
+                "**قم برفعي مشرف مع الصلاحيات المطلوبه ثم اكتب /userbotjoin لدعوه الحساب المساعد الي مجموعتك.**\n\n"
+                "**بعد الانتهاء ارسل امر** /reload ",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("📣 قنــاه البــوت", url=f"https://t.me/{UPDATES_CHANNEL}"),
-                            InlineKeyboardButton("💭  جــروب الدعــم", url=f"https://t.me/{GROUP_SUPPORT}")
+                            InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/{UPDATES_CHANNEL}"),
+                            InlineKeyboardButton("💭 الـدعــم", url=f"https://t.me/{GROUP_SUPPORT}")
                         ],
                         [
-                            InlineKeyboardButton("👤 الحــساب المــساعــد", url=f"https://t.me/{ASSISTANT_NAME}")
+                            InlineKeyboardButton("المـساعــد 👥", url=f"https://t.me/{ass_uname}")
                         ]
                     ]
                 )
