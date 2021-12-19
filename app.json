@@ -1,16 +1,16 @@
 {
     "name": "Video x Music Stream Bot",
     "description": "Telegram bot for Streaming Video & Music trought the Telegram Group Video Chat, powered by pytgcalls and pyrogram",
-    "logo": "https://telegra.ph/file/da0213215ffeba1eb3602.png",
+    "logo": "https://telegra.ph/file/5e2da7a50d090e37dd665.jpg",
     "keywords": [
         "pytgcalls",
         "telegram bot",
         "video stream",
         "pyrogram"
     ],
-    "website": "https://t.me/G8_01",
-    "repository": "https://github.com/gambol8/video-stream",
-    "success_url": "https://t.me/G8_M_L",
+    "website": "https://t.me/g8_01",
+    "repository": "https://github.com/Gambol8/video-stream",
+    "success_url": "https://t.me/g8_m_l",
     "env": {
         "API_ID": {
             "description": "your API_ID from my.telegram.org",
@@ -62,7 +62,7 @@
         "ALIVE_NAME": {
             "description": "fill with your telegram account nickname/name",
             "required": true,
-            "value": "DJ GAMBOL"
+            "value": "D_J_H4"
         }
     },
     "addons": [],
