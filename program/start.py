@@ -109,7 +109,7 @@ async def alive(client: Client, message: Message):
         ]
     )
 
-    alive = f"**Hello {message.from_user.mention()}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n🍀 My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ Bot Version: `v{__version__}`\n🍀 Pyrogram Version: `{pyrover}`\n✨ Python Version: `{__python_version__}`\n🍀 PyTgCalls version: `{pytover.__version__}`\n✨ Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing video & music on your Group's video chat** ❤"
+    alive = f"**مرحبا عزيزي** {message.from_user.mention()}, **انا بوت**  {BOT_NAME}**\n\n✨ \n🍀 **المطور:**{OWNER_NAME}\n\n✨ **حاله البوت:** `{uptime}`\n\n**شكرا لاضافتي الي مجموعتك يمكنني تشغيل الموسيقي & الفيديو داخل المحادثات الصوتيه** ♡"
 
     await message.reply_photo(
         photo=f"{ALIVE_IMG}",
@@ -132,9 +132,9 @@ async def get_uptime(client: Client, message: Message):
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
-        "🤖 bot status:\n"
-        f"• **uptime:** `{uptime}`\n"
-        f"• **start time:** `{START_TIME_ISO}`"
+        "🤖 حاله البوت:\n"
+        f"• **التحديث:** `{uptime}`\n"
+        f"• **وقت التشغيل:** `{START_TIME_ISO}`"
     )
 
 
@@ -152,10 +152,10 @@ async def new_chat(c: Client, m: Message):
                     [
                         [
                             InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/{UPDATES_CHANNEL}"),
-                            InlineKeyboardButton("💭 الـدعــم", url=f"https://t.me/{GROUP_SUPPORT}")
+                            InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/G8_M_L")
                         ],
                         [
-                            InlineKeyboardButton("المـساعــد 👥", url=f"https://t.me/{ass_uname}")
+                            InlineKeyboardButton("المـساعــد 👥", url=f"https://t.me/{ASSISTANT_NAME}")
                         ]
                     ]
                 )

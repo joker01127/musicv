@@ -1,11 +1,17 @@
+# A Powerful Music Bot Property Of Rocks Indian Largest Chatting Group
+# Without Credit (Mother Fucker)
+# Rocks © @g8_01 © Rocks
+# Owner Asad + Harshit
+ 
+
 from cache.admins import admins
-from driver.veez import call_py
+from rocksdriver.asad import call_py
 from pyrogram import Client, filters
-from driver.decorators import authorized_users_only
-from driver.filters import command, other_filters
-from driver.queues import QUEUE, clear_queue
-from driver.utils import skip_current_song, skip_item
-from config import BOT_USERNAME, GROUP_SUPPORT, IMG_3, UPDATES_CHANNEL
+from rocksdriver.decorators import authorized_users_only
+from rocksdriver.filters import command, other_filters
+from rocksdriver.queues import QUEUE, clear_queue
+from rocksdriver.utils import skip_current_song, skip_item
+from config import BOT_USERNAME, GROUP_SUPPORT, IMG_3, UPDATES_CHANNEL, REPO_OWNER, BOT_UPDATE, MY_BRO, MY_SERVER, BOT_NAME, MY_HEART
 from pyrogram.types import (
     CallbackQuery,
     InlineKeyboardButton,
@@ -15,12 +21,12 @@ from pyrogram.types import (
 
 
 bttn = InlineKeyboardMarkup(
-    [[InlineKeyboardButton(" ", callback_data="cbmenu")]]
+    [[InlineKeyboardButton("🔙 رجــوع", callback_data="cbmenu")]]
 )
 
 
 bcl = InlineKeyboardMarkup(
-    [[InlineKeyboardButton(" ", callback_data="cls")]]
+    [[InlineKeyboardButton("🗑 اغــلاق", callback_data="cls")]]
 )
 
 
@@ -33,8 +39,7 @@ async def update_admin(client, message):
     for u in new_ads:
         new_admins.append(u.user.id)
     admins[message.chat.id] = new_admins
-    await message.reply_text(
-        "**      **"
+    await message.reply_text(f"""تم تحديث البوت ورفع الادمنيه""",
     )
 
 
@@ -45,12 +50,8 @@ async def skip(client, m: Message):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                    text="", url="https://t.me/G8_M_L"
-                ),
-                InlineKeyboardButton(
-                    text=" �", callback_data="cls"
-                ),
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/G8_M_L"),
+                InlineKeyboardButton("🗑 اغــلاق", callback_data="cls"),
             ]
         ]
     )
@@ -59,20 +60,20 @@ async def skip(client, m: Message):
     if len(m.command) < 2:
         op = await skip_current_song(chat_id)
         if op == 0:
-            await m.reply(" **   **")
+            await m.reply("❌ **لا يوجد شيء مشغل**")
         elif op == 1:
-            await m.reply("  ** .**\n\n**�  [ ](t.me/Akja0)     **")
+            await m.reply("✅ قوائم **الإنتظار فارغه.**\n\n**• توقف [تشغيل الموسيقى](t.me/g8_01) وترك الحساب المساعد المحادثه الصوتيه**")
         elif op == 2:
-            await m.reply(" **  **\n\n** [ ](t.me/Akja0)     **")
+            await m.reply("🗑️ **مسح قوائم الانتظار**\n\n**توقف [تشغيل الموسيقى](t.me/g8_01) وترك الحساب المساعد المحادثه الصوتيه**")
         else:
             await m.reply_photo(
                 photo=f"{IMG_3}",
-                caption=f" **  .**\n\n **:** [{op[0]}]({op[1]})\n **:** `{chat_id}`\n **:** ``\n ** :** {m.from_user.mention()}",
+                caption=f"⏭ **Skipped to next tarck.**\n\n🎙️ **Name:** [{op[0]}]({op[1]})\n\n🔋 **Status:** `Playing`\n🎧 **Request by:** {m.from_user.mention()}",
                 reply_markup=keyboard,
             )
     else:
         skip = m.text.split(None, 1)[1]
-        OP = "     "
+        OP = "🗑 **تم ازاله الاغنيه**"
         if chat_id in QUEUE:
             items = [int(x) for x in skip.split(" ") if x.isdigit()]
             items.sort(reverse=True)
@@ -99,11 +100,27 @@ async def stop(client, m: Message):
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await m.reply(" **     **")
+            await m.reply("✅ **تم ايقاف** [تشغيل](t.me/g8_01) **الموسيقي في المجموعه**")
+            keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/g8_01"),
+                InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/g8_01"),
+            ]
+        ]
+    )
         except Exception as e:
-            await m.reply(f" ** :**\n\n`{e}`")
+            await m.reply(f"🚫 **هناك خطأ:**\n\n`{e}`")
     else:
-        await m.reply("**     **")
+        await m.reply("❌ لا توجد موسيقى مشغله الان**")
+        keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/g8_01"),
+                InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/g8_01"),
+            ]
+        ]
+    )
 
 
 @Client.on_message(
@@ -116,12 +133,12 @@ async def pause(client, m: Message):
         try:
             await call_py.pause_stream(chat_id)
             await m.reply(
-                " **   **"
+                "⏸ **تم إيقاف المسار مؤقتًا.**\n\n• **لاستئناف استخدام**\n» /resume ."
             )
         except Exception as e:
-            await m.reply(f" ** :**\n\n`{e}`")
+            await m.reply(f"🚫 **هناك خطأ:**\n\n`{e}`")
     else:
-        await m.reply("**     **")
+        await m.reply("❌ لا توجد موسيقى مشغله الان**")
 
 
 @Client.on_message(
@@ -134,12 +151,28 @@ async def resume(client, m: Message):
         try:
             await call_py.resume_stream(chat_id)
             await m.reply(
-                " **   **"
+                "▶️ **At** [تشغيل الموسيقى](t.me/g8_01) **Tʀᴀᴄᴋ ɪs ʀᴇsᴜᴍᴇᴅ.**\n\n• **To pause the stream, use the**\n» /pause command."
             )
+            keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/g8_01"),
+                InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/g8_01"),
+            ]
+        ]
+    )
         except Exception as e:
-            await m.reply(f" ** :**\n\n`{e}`")
+            await m.reply(f"🚫 **هناك خطأ:**\n\n`{e}`")
     else:
-        await m.reply("**     **")
+        await m.reply("❌ لا توجد موسيقى مشغله الان**")
+        keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/g8_01"),
+                InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/g8_01"),
+            ]
+        ]
+    )
 
 
 @Client.on_message(
@@ -152,12 +185,28 @@ async def mute(client, m: Message):
         try:
             await call_py.mute_stream(chat_id)
             await m.reply(
-                "**   **"
+                "🔇 تم كتم الصوت بنجاح .**\n\n• **استخدم هذا الامر لالغاء الكتم**\n» /unmute ."
             )
+            keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/g8_01"),
+                InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/g8_01"),
+            ]
+        ]
+    )
         except Exception as e:
-            await m.reply(f" ** :**\n\n`{e}`")
+            await m.reply(f"🚫 **هناك خطأ:**\n\n`{e}`")
     else:
-        await m.reply("**     **")
+        await m.reply("❌ لا توجد موسيقى مشغله الان**")
+        keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/g8_01"),
+                InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/g8_01"),
+            ]
+        ]
+    )
 
 
 @Client.on_message(
@@ -170,111 +219,127 @@ async def unmute(client, m: Message):
         try:
             await call_py.unmute_stream(chat_id)
             await m.reply(
-                "**     **"
+                "🔊 **تم الغاء الكتم عند تشغيل الموسيقى ، يكون البوت غير مكتوم.**\n\n• **لكتم صوت الاغاني ارسل امر**\n» /mute ."
             )
+            keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/g8_01"),
+                InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/g8_01"),
+            ]
+        ]
+    )
         except Exception as e:
-            await m.reply(f" ** :**\n\n`{e}`")
+            await m.reply(f"🚫 **هناك خطأ:**\n\n`{e}`")
     else:
-        await m.reply("**     **")
+        await m.reply("❌ لا توجد موسيقى مشغله الان**")
+        keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/g8_01"),
+                InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/g8_01"),
+            ]
+        ]
+    )
 
 
 @Client.on_callback_query(filters.regex("cbpause"))
 async def cbpause(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("    !\n\n�     .")
+        return await query.answer("هناك خطا يا عزيزي !\n\n» يرجي إيقاف صلاحيه البقاء مختفياً.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("              ", show_alert=True)
+        return await query.answer("🔋 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.pause_stream(chat_id)
             await query.edit_message_text(
-                "**    **", reply_markup=bttn
+                "⏸ the streaming has paused", reply_markup=bttn
             )
         except Exception as e:
-            await query.edit_message_text(f" ** :**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هناك خطأ:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("**     **", show_alert=True)
+        await query.answer("❌ لا يوجد شئ مشغل الان", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbresume"))
 async def cbresume(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("    !\n\n�     .")
+        return await query.answer("هناك خطا يا عزيزي !\n\n» يرجي إيقاف صلاحيه البقاء مختفياً.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("              ", show_alert=True)
+        return await query.answer("🔋 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.resume_stream(chat_id)
             await query.edit_message_text(
-                " **   ** ", reply_markup=bttn
+                "▶️ تم استئناف البث", reply_markup=bttn
             )
         except Exception as e:
-            await query.edit_message_text(f" ** :**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هناك خطأ:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("�**     **", show_alert=True)
+        await query.answer("❌ لا يوجد شئ مشغل الان", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbstop"))
 async def cbstop(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("    !\n\n�     .")
+        return await query.answer("هناك خطا يا عزيزي !\n\n» يرجي إيقاف صلاحيه البقاء مختفياً.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("              ", show_alert=True)
+        return await query.answer("🔋 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await query.edit_message_text("**  **", reply_markup=bcl)
+            await query.edit_message_text("✅ **انتهى تشغيل هذا الشئ**", reply_markup=bcl)
         except Exception as e:
-            await query.edit_message_text(f" ** :**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هناك خطأ:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("**    **", show_alert=True)
+        await query.answer("❌ لا يوجد شئ مشغل الان", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbmute"))
 async def cbmute(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("    !\n\n�     .")
+        return await query.answer("هناك خطا يا عزيزي !\n\n» يرجي إيقاف صلاحيه البقاء مختفياً.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("              ", show_alert=True)
+        return await query.answer("🔋 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.mute_stream(chat_id)
             await query.edit_message_text(
-                "🔇 userbot succesfully muted", reply_markup=bttn
+                "🔇 تم الغاء الوضع الصامت بنجاح", reply_markup=bttn
             )
         except Exception as e:
-            await query.edit_message_text(f" ** :**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هناك خطأ:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("**    **", show_alert=True)
+        await query.answer("❌ لا يوجد شئ مشغل الان", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbunmute"))
 async def cbunmute(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("    !\n\n�     .")
+        return await query.answer("هناك خطا يا عزيزي !\n\n» يرجي إيقاف صلاحيه البقاء مختفياً.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("              ", show_alert=True)
+        return await query.answer("🔋 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.unmute_stream(chat_id)
             await query.edit_message_text(
-                "**    **", reply_markup=bttn
+                "🔊 تم الغاء الصمت بنجاح**", reply_markup=bttn
             )
         except Exception as e:
-            await query.edit_message_text(f" ** :**\n\n`{e}`, reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هناك خطأ:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("**    **", show_alert=True)
+        await query.answer("❌ **لا يوجد شئ مشغله الان**", show_alert=True)
 
 
 @Client.on_message(
@@ -288,9 +353,9 @@ async def change_volume(client, m: Message):
         try:
             await call_py.change_volume_call(chat_id, volume=int(range))
             await m.reply(
-                f"� ** ** `{range}`%"
+                f"✅ **تم ضبط الصوت على** `{range}`%"
             )
         except Exception as e:
-            await m.reply(f" ** :**\n\n`{e}`")
+            await m.reply(f"🚫 **هناك خطأ:**\n\n`{e}`")
     else:
-        await m.reply("**    **")
+        await m.reply("❌ **لا يوجد موسيقى مشغله الان**")

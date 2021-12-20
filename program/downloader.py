@@ -37,6 +37,20 @@ ydl_opts = {
 
 @Client.on_message(command(["song", f"song@{bn}"]) & ~filters.edited)
 def song(_, message):
+
+    keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    text="𓆩المــطــور𓆪", url=f"https://t.me/G8_M_L"
+                ),
+                InlineKeyboardButton(
+                    text="🗑 اغــلاق", callback_data="cls"
+                ),
+            ]
+        ]
+    )
+
     query = " ".join(message.command[1:])
     m = message.reply("🔎 جاري البحث...")
     ydl_ops = {"format": "bestaudio[ext=m4a]"}
@@ -90,6 +104,20 @@ def song(_, message):
     command(["vsong", f"vsong@{bn}", "video", f"video@{bn}"]) & ~filters.edited
 )
 async def vsong(client, message):
+
+    keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    text="𓆩المــطــور𓆪", url=f"https://t.me/G8_M_L"
+                ),
+                InlineKeyboardButton(
+                    text="🗑 اغــلاق", callback_data="cls"
+                ),
+            ]
+        ]
+    )
+
     ydl_opts = {
         "format": "best",
         "keepvideo": True,
