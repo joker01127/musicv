@@ -1,4 +1,4 @@
-
+# Copyright (C) 2021 Veez Project
 
 import re
 import uuid
@@ -35,7 +35,7 @@ async def give_sysinfo(client, message):
     psutil.disk_io_counters()
     disk = f"{humanbytes(du.used)} / {humanbytes(du.total)} " f"({du.percent}%)"
     cpu_len = len(psutil.Process().cpu_affinity())
-    somsg = f"""**  **
+    somsg = f"""🖥 **System Information**
     
 **PlatForm :** `{splatform}`
 **PlatForm - Release :** `{platform_release}`

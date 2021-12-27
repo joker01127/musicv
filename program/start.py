@@ -53,35 +53,30 @@ async def _human_time_duration(seconds):
 )
 async def start_(client: Client, message: Message):
     await message.reply_text(
-        f""" **مرحــبا {message.from_user.mention()} !**\n
-❣️ [{UPDATES_CHANNEL}](https://t.me/{UPDATES_CHANNEL}) **يمكنني تشغيل الموسيقي و الفيديوهات داخل المحادثه الصوتيه**
+        f"""✨ **مرحبا  {message.from_user.mention()} !**\n
+💭 [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **يتيح لك تشغيل الموسيقى والفيديو في مجموعات من خلال محادثات الفيديو الجديدة في Telegram!**
 
+💡 **اكتشف جميع أوامر البوت وكيفية عملها من خلال النقر فوق » 📚 زر الاوامر!**
 
-
-💫 **للمزيد عن طريقه الاستخدام اتبع الازرار.!**
+🔖 **لمعرفة كيفية استخدام هذا البوت ، الرجاء النقر فوق » ❓ طريقه الاستخدام!**
 """,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "اضــف البــوت الـي مجمــوعــتك",
+                        "اضف البوت لمجموعتك ❖",
                         url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
                     )
                 ],
-                [
-                    InlineKeyboardButton("الاوامـــر 📚", callback_data="cbcmds"),
+                [InlineKeyboardButton("📚 الاوامر", callback_data="cbcmds"),
+                    InlineKeyboardButton("❓ طريقه الاستخدام", callback_data="cbhowtouse")
                 ],
                 [
                     InlineKeyboardButton(
-                        "المـساعــد 👥", url=f"https://t.me/{ASSISTANT_NAME}"
+                        "مطور السورس💭", url=f"https://t.me/G8_M_L"
                     ),
                     InlineKeyboardButton(
-                        "المــطور ❤️‍🔥", url=f"https://t.me/{OWNER_NAME}"
-                    ),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "الــســـورس", url="https://t.me/G8_01"
+                        "📣 قناة السورس", url="https://t.me/G8_01"
                     )
                 ],
             ]
@@ -91,7 +86,7 @@ async def start_(client: Client, message: Message):
 
 
 @Client.on_message(
-    command(["start", f"start@{BOT_USERNAME}"]) & filters.group & ~filters.edited
+    command(["alive", f"alive@{BOT_USERNAME}"]) & filters.group & ~filters.edited
 )
 async def alive(client: Client, message: Message):
     current_time = datetime.utcnow()
@@ -101,15 +96,15 @@ async def alive(client: Client, message: Message):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("✨ الـدعــم", url=f"https://t.me/{GROUP_SUPPORT}"),
+                InlineKeyboardButton("مطور السورس 💭", url=f"https://t.me/G8_M_L"),
                 InlineKeyboardButton(
-                    "📣 القـــناه", url=f"https://t.me/{UPDATES_CHANNEL}"
+                    "📣 قناة السورس", url=f"https://t.me/G8_01"
                 ),
             ]
         ]
     )
 
-    alive = f"**مرحبا عزيزي** {message.from_user.mention()}, **انا بوت**  {BOT_NAME}**\n\n✨ \n🍀 **المطور:**{OWNER_NAME}\n\n✨ **حاله البوت:** `{uptime}`\n\n**شكرا لاضافتي الي مجموعتك يمكنني تشغيل الموسيقي & الفيديو داخل المحادثات الصوتيه** ♡"
+    alive = f"**مرحبا {message.from_user.mention()}, i'm {BOT_NAME}**\n\n✨ يعمل البوت بشكل طبيعي\n🍀 My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ نسخة البوت: `v{__version__}`\n🍀 نسخة بيروجرام: `{pyrover}`\n✨ نسخة بايثون: `{__python_version__}`\n🍀 فيثاغورس والترخيص: `{pytover.__version__}`\n✨ التحديث: `{uptime}`\n\n**شكرا لإضافتي هنا ، لتشغيل الفيديو & الموسيقى في دردشة الفيديو الجماعية الخاصة بك** 💭"
 
     await message.reply_photo(
         photo=f"{ALIVE_IMG}",
@@ -118,12 +113,12 @@ async def alive(client: Client, message: Message):
     )
 
 
-@Client.on_message(command(["ping", f"ping@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["ping", f"ping@{BOT_USERNAME}", "بينج"]) & ~filters.edited)
 async def ping_pong(client: Client, message: Message):
     start = time()
     m_reply = await message.reply_text("pinging...")
     delta_ping = time() - start
-    await m_reply.edit_text("🏓 `PONG!!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
+    await m_reply.edit_text("🏓 `معلومات البينج!!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
 
 
 @Client.on_message(command(["uptime", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
@@ -132,7 +127,7 @@ async def get_uptime(client: Client, message: Message):
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
-        "🤖 حاله البوت:\n"
+        "🤖 حالة البوت:\n"
         f"• **التحديث:** `{uptime}`\n"
         f"• **وقت التشغيل:** `{START_TIME_ISO}`"
     )
@@ -145,17 +140,17 @@ async def new_chat(c: Client, m: Message):
     for member in m.new_chat_members:
         if member.id == bot_id:
             return await m.reply(
-                "❤️ **شكرا لاضافتي الي مجموعتك يمكنك متابعه التحديثات م هنا @G8_01**\n\n"
-                "**قم برفعي مشرف مع الصلاحيات المطلوبه ثم اكتب /userbotjoin لدعوه الحساب المساعد الي مجموعتك.**\n\n"
-                "**بعد الانتهاء ارسل امر** /reload ",
+                "❤️ **شكرا لإضافتي إلى المجموعة !**\n\n"
+                "**قم بترقيتي كمسؤول عن المجموعة ، وإلا فلن أتمكن من العمل بشكل صحيح ، ولا تنسى الكتابة /userbotjoin لدعوة المساعد.**\n\n"
+                "**لرفع الادمنيه اكتب** /reload",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("📣 القـــناه", url=f"https://t.me/{UPDATES_CHANNEL}"),
-                            InlineKeyboardButton("𓆩المــطــور𓆪", url=f"https://t.me/G8_M_L")
+                            InlineKeyboardButton("📣 قناة السورس", url=f"https://t.me/G8_01"),
+                            InlineKeyboardButton("مطور السورس💭", url=f"https://t.me/G8_M_L")
                         ],
                         [
-                            InlineKeyboardButton("المـساعــد 👥", url=f"https://t.me/{ASSISTANT_NAME}")
+                            InlineKeyboardButton("👤 حساب المساعد", url=f"https://t.me/{ass_uname}")
                         ]
                     ]
                 )
