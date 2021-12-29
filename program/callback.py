@@ -16,12 +16,14 @@ from config import (
 @Client.on_callback_query(filters.regex("cbstart"))
 async def cbstart(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""✨ **مرحبا عزيزي [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**\n
-💭 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) allows you to play music and video on groups through the new Telegram's video chats!**
-
-💡 **اكتشف جميع أوامر الروبوت وكيفية عملها من خلال النقر فوق » 📚 زر الاوامر!**
-
-🔖 **لمعرفة كيفية استخدام هذا الروبوت ، الرجاء النقر فوق » ❓ طريقه الاستخدام!**""",
+        f"""
+╭━❲☆[sᴏᴜʀᴄᴇ ᴅᴊ ɢᴀᴍʙᴏʟ](t.me/G8_01)☆❳━╮
+✨ **مرحبا  {message.from_user.mention()} !**
+ 💭 **انا بوت** [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **يمكنني ان اقوم بالتالي**
+💡 - **تشغيل الاغاني و الفيديوهات داخل المحادثه الصوتيه**
+ ❓- **للمزيد عن البوت و الاستخدام اتبع الازرار**
+╰━❲☆[sᴏᴜʀᴄᴇ ᴅᴊ ɢᴀᴍʙᴏʟ](t.me/G8_01)☆❳━╯
+""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -97,17 +99,17 @@ async def cbbasic(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""🏮 اليك الاوامر الاساسيه للتشغيل:
 
-» /play - /تشغيل (song name/link) ➥ play music on video chat
-» /video - /فيديو (video name/link) ➥ play video on video chat
+» /play - /تشغيل (song name/link) ➥ لتشغيل الاغاني
+» /video - /فيديو (video name/link) ➥ لتشغيل الفيديو
 » /vstream ➥ play live video from yt live/m3u8
-» /playlist - /التحكم ➥ show you the playlist
-» /vsong (query) ➥ download video from youtube
-» /song (query) - download song from youtube
-» /lyric (query) ➥ scrap the song lyric
+» /playlist - /لعرض قائمه الانتظار و التحكم بها ➥ التحكم 
+» /vsong -/تحميل(query) ➥ لتحميل فيديو
+» /song -/صوت (query) - لتحميل اغنيه
+» /lyric - /كلمات (query) ➥ بحث عن كلمات اغنيه
 » /search (query) ➥ search a youtube video link
 
-» /ping ➥ show the bot ping status
-» /uptime ➥ show the bot uptime status
+» /ping - /عرض سرعه وحاله البوت ➥ بينج
+» /uptime - /لتحديث البوت الي اخر اصدار➥ تحديث 
 » /alive ➥ show the bot alive info (in group)
 
 ⚡️ __Powered by {BOT_NAME} AI__""",
@@ -123,15 +125,15 @@ async def cbadmin(_, query: CallbackQuery):
         f"""🏮 اليك اوامر الادمن:
 
 » /pause - /توقف ➥ pause the stream
-» /resume ➥ resume the stream
-» /skip - /تخطي ➥ switch to next stream
-» /stop - /توقف ➥ stop the streaming
+» /resume ➥ /استئناف resume the stream
+» /skip - /لتخطي الاغنيه الحاليه ➥ تخطي 
+» /stop - /لانهاء التشغيل الحالي ➥ نهاء 
 » /vmute ➥ mute the userbot on voice chat
 » /vunmute ➥ unmute the userbot on voice chat
 » /volume `1-200` ➥ adjust the volume of music (userbot must be admin)
-» /reload ➥ reload bot and refresh the admin data
-» /userbotjoin ➥ invite the userbot to join group
-» /userbotleave ➥ order userbot to leave from group
+» /reload - /اعاده تحميل ➥ reload bot and refresh the admin data
+» /userbotjoin - /انضم ➥ invite the userbot to join group
+» /userbotleave - /غادر➥ order userbot to leave from group
 
 ⚡️ __Powered by {BOT_NAME} AI__""",
         reply_markup=InlineKeyboardMarkup(
@@ -149,7 +151,7 @@ async def cbsudo(_, query: CallbackQuery):
 » /sysinfo - show the system information
 » /update - update your bot to latest version
 » /restart - restart your bot
-» /leaveall - order userbot to leave from all group
+» /leaveall - /مغادره- order userbot to leave from all group
 
 ⚡ __Powered by {BOT_NAME} AI__""",
         reply_markup=InlineKeyboardMarkup(
@@ -161,14 +163,14 @@ async def cbsudo(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbmenu"))
 async def cbmenu(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("you're an Anonymous Admin !\n\n» revert back to user account from admin rights.")
+        return await query.answer("انت لسا __ادمـــن__ !\n\n» يمكن للادمن فقط تنفيذ هذا الامر..")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 only admin with manage voice chats permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 يمكن للادمن فقط استخدام الازرار الحاليه !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
           await query.edit_message_text(
-              f"⚙️ **الاعدادات** {query.message.chat.title}\n\n⏸ : pause stream\n▶️ : resume stream\n🔇 : mute userbot\n🔊 : unmute userbot\n⏹ : stop stream",
+              f"⚙️ **الاعدادات** {query.message.chat.title}\n\n⏸ : توقف البث\n▶️ : استئناف البث\n🔇 : كتم\n🔊 : الغاء كتم \n⏹ : انهاء البث",
               reply_markup=InlineKeyboardMarkup(
                   [[
                       InlineKeyboardButton("⏹", callback_data="cbstop"),
@@ -183,12 +185,12 @@ async def cbmenu(_, query: CallbackQuery):
              ),
          )
     else:
-        await query.answer("❌ nothing is currently streaming", show_alert=True)
+        await query.answer("❌ لا يوجد تدفق تاني ?", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cls"))
 async def close(_, query: CallbackQuery):
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 only admin with manage voice chats permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 يمكن للادمن فقط استخدام الازرار الحاليه !", show_alert=True)
     await query.message.delete()

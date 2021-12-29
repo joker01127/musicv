@@ -3,6 +3,7 @@ from sys import version_info
 from time import time
 
 from config import (
+    IMG_5,
     ALIVE_IMG,
     ALIVE_NAME,
     BOT_NAME,
@@ -53,12 +54,13 @@ async def _human_time_duration(seconds):
 )
 async def start_(client: Client, message: Message):
     await message.reply_text(
-        f"""✨ **مرحبا  {message.from_user.mention()} !**\n
-💭 [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **يتيح لك تشغيل الموسيقى والفيديو في مجموعات من خلال محادثات الفيديو الجديدة في Telegram!**
-
-💡 **اكتشف جميع أوامر البوت وكيفية عملها من خلال النقر فوق » 📚 زر الاوامر!**
-
-🔖 **لمعرفة كيفية استخدام هذا البوت ، الرجاء النقر فوق » ❓ طريقه الاستخدام!**
+        f"""
+╭━❲☆[sᴏᴜʀᴄᴇ ᴅᴊ ɢᴀᴍʙᴏʟ](t.me/G8_01)☆❳━╮
+✨ **مرحبا  {message.from_user.mention()} !**
+ 💭 **انا بوت** [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **يمكنني ان اقوم بالتالي**
+💡 - **تشغيل الاغاني و الفيديوهات داخل المحادثه الصوتيه**
+ ❓- **للمزيد عن البوت و الاستخدام اتبع الازرار**
+╰━❲☆[sᴏᴜʀᴄᴇ ᴅᴊ ɢᴀᴍʙᴏʟ](t.me/G8_01)☆❳━╯
 """,
         reply_markup=InlineKeyboardMarkup(
             [
@@ -104,7 +106,7 @@ async def alive(client: Client, message: Message):
         ]
     )
 
-    alive = f"**مرحبا {message.from_user.mention()}, i'm {BOT_NAME}**\n\n✨ يعمل البوت بشكل طبيعي\n🍀 My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ نسخة البوت: `v{__version__}`\n🍀 نسخة بيروجرام: `{pyrover}`\n✨ نسخة بايثون: `{__python_version__}`\n🍀 فيثاغورس والترخيص: `{pytover.__version__}`\n✨ التحديث: `{uptime}`\n\n**شكرا لإضافتي هنا ، لتشغيل الفيديو & الموسيقى في دردشة الفيديو الجماعية الخاصة بك** 💭"
+    alive = f"**مرحبا {message.from_user.mention()}, i'm {BOT_NAME}**\n\n✨ يعمل البوت بشكل طبيعي\n🍀 المطــور: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ نسخة البوت: `v{__version__}`\n🍀 نسخة بيروجرام: `{pyrover}`\n✨ نسخة بايثون: `{__python_version__}`\n🍀 فيثاغورس والترخيص: `{pytover.__version__}`\n✨ التحديث: `{uptime}`\n\n**شكرا لإضافتي هنا ، لتشغيل الفيديو & الموسيقى في دردشة الفيديو الجماعية الخاصة بك** 💭"
 
     await message.reply_photo(
         photo=f"{ALIVE_IMG}",
@@ -113,7 +115,68 @@ async def alive(client: Client, message: Message):
     )
 
 
-@Client.on_message(command(["ping", f"ping@{BOT_USERNAME}", "بينج"]) & ~filters.edited)
+@Client.on_message(
+    command(["سورس", f"يا سورس"]) & filters.group & ~filters.edited
+)
+async def alive(client: Client, message: Message):
+    current_time = datetime.utcnow()
+    uptime_sec = (current_time - START_TIME).total_seconds()
+    uptime = await _human_time_duration(int(uptime_sec))
+
+    keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("مطور السورس 💭", url=f"https://t.me/G8_M_L"),
+                InlineKeyboardButton(
+                    "📣 قناة السورس", url=f"https://t.me/G8_01"
+                ),
+            ]
+        ]
+    )
+
+    alive = f"""
+╭━❲☆[sᴏᴜʀᴄᴇ ᴅᴊ ɢᴀᴍʙᴏʟ](t.me/G8_01)☆❳━╮
+✨ **مرحبا  {message.from_user.mention()} !**
+ 💭 **انا بوت** [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **يمكنني ان اقوم بالتالي**
+💡 - **تشغيل الاغاني و الفيديوهات داخل المحادثه الصوتيه**
+ ❓- **للمزيد عن البوت و الاستخدام اتبع الازرار**
+╰━❲☆[sᴏᴜʀᴄᴇ ᴅᴊ ɢᴀᴍʙᴏʟ](t.me/G8_01)☆❳━╯
+""",
+    await message.reply_photo(
+        photo=f"{ALIVE_IMG}",
+        caption=alive,
+        reply_markup=keyboard,
+    )
+    
+    
+    @Client.on_message(
+    command(["غامبول", f"خالد","غنبول"]) & filters.group & ~filters.edited
+)
+async def alive(client: Client, message: Message):
+    current_time = datetime.utcnow()
+    uptime_sec = (current_time - START_TIME).total_seconds()
+    uptime = await _human_time_duration(int(uptime_sec))
+
+    keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("غــــامــــبـــول ♡", url=f"https://t.me/G8_M_L"),
+                InlineKeyboardButton(
+                    "📣 قناة السورس", url=f"https://t.me/G8_01"
+                ),
+            ]
+        ]
+    )
+
+    alive = f"『المـــطـور غامــبول للتــواصــل اتبـــع الازرار』",
+    await message.reply_photo(
+        photo=f"{IMG_5}",
+        caption=alive,
+        reply_markup=keyboard,
+    )
+    
+    
+@Client.on_message(command(["بينج", f"ping@{BOT_USERNAME}", "بينج"]) & ~filters.edited)
 async def ping_pong(client: Client, message: Message):
     start = time()
     m_reply = await message.reply_text("pinging...")
@@ -121,7 +184,7 @@ async def ping_pong(client: Client, message: Message):
     await m_reply.edit_text("🏓 `معلومات البينج!!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
 
 
-@Client.on_message(command(["uptime", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["تحديث", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
 async def get_uptime(client: Client, message: Message):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
